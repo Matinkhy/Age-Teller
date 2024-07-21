@@ -1,17 +1,31 @@
 package com.mycompany.ageteller;
 
-import java.time.*;
-import javax.swing.*;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+import java.util.HashMap;
 
 public class AgeTeller {
 
     public static void main(String[] args) {
 
         int MonthNum = -1, dayOfMonth, yearNum, Years, Months, Days, numOfDaysInMonth = 0;
-        boolean boolMonth = true, boolYear = true, boolDay, boolLeapYear = false;
+        boolean boolMonth, boolYear = true, boolDay, boolLeapYear = false;
         String month = "", year, day;
-        String[] MonthsArray = {"January", "February", "March", "April", "May", "June", "July", "August", "September",
-            "October", "November", "December"};
+
+        HashMap<String, Integer> MonthsMap = new HashMap<>();
+
+        putCaseInsensitiveKey(MonthsMap, "January", 1);
+        putCaseInsensitiveKey(MonthsMap, "February", 2);
+        putCaseInsensitiveKey(MonthsMap, "March", 3);
+        putCaseInsensitiveKey(MonthsMap, "April", 4);
+        putCaseInsensitiveKey(MonthsMap, "May", 5);
+        putCaseInsensitiveKey(MonthsMap, "June", 6);
+        putCaseInsensitiveKey(MonthsMap, "July", 7);
+        putCaseInsensitiveKey(MonthsMap, "August", 8);
+        putCaseInsensitiveKey(MonthsMap, "September", 9);
+        putCaseInsensitiveKey(MonthsMap, "October", 10);
+        putCaseInsensitiveKey(MonthsMap, "November", 11);
+        putCaseInsensitiveKey(MonthsMap, "December", 12);
 
         LocalDate date = LocalDate.now();
 
@@ -33,17 +47,12 @@ public class AgeTeller {
 
         do {
             month = JOptionPane.showInputDialog("Which month were you born in");
-            for (int i = 0; i < 11; ++i) {
-                if (MonthsArray[i].equalsIgnoreCase(month)) {
-                    MonthNum = i + 1;
-                    boolMonth = true;
-                    break;
-                }
-            }
-            if (MonthNum == -1) {
+            if (!MonthsMap.containsKey(month)) {
                 boolMonth = false;
                 JOptionPane.showMessageDialog(null, "The month you entered is invalid");
-
+            } else {
+                MonthNum = MonthsMap.get(month);
+                boolMonth = true;
             }
         } while (!boolMonth);
 
@@ -85,5 +94,7 @@ public class AgeTeller {
         JOptionPane.showMessageDialog(null, "You are " + Years + " years and " + Months + " months and " + Days + " days old");
     }
 
+    private static void putCaseInsensitiveKey(HashMap<String, Integer> map, String key, Integer value) {
+        map.put(key.toLowerCase(), value);
+    }
 }
-
