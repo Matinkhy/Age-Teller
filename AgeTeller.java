@@ -69,7 +69,7 @@ public class AgeTeller {
                     numOfDaysInMonth = 30;
                 }
                 case 2 -> {
-                    numOfDaysInMonth = 29;
+                    numOfDaysInMonth = 28;
                 }
             }
         }
